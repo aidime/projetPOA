@@ -1,0 +1,12 @@
+Projet de Programmation Objet Avancée (Marion PELLICER, Paul SEICHAIS)
+
+
+	Le projet consiste en la création d'une application pour Windows de gestion de jeu de rôle papier (comprendre Donjons & Dragons, L'Appel de Cthulhu, ...).
+
+	L'application aurait pour vocation à servir de plateforme interactive pour le maître de jeu ("MJ" dans la suite), et pour les joueurs ("PJ" dans la suite) : un utilisateur aurait donc, durant une campagne donnée, le statut de joueur ou de maître de jeu, et possèderait les droits en conséquence.
+
+	Le MJ pourra se servir de la plateforme pour lancer des dés, faire apparaître des monstres qu'il aura configuré au préalable, avoir des logs des combats ou des lancés de dés,... Elle aura pour but de l'assister dans sa tâche en la rendant moins pénible au niveau du matériel (plus de gachi de papier !). Les possibilités de fonctionnalités sont nombreuses, et elles seront étudiées à la lumière des règles du jeu que nous mettrons en place dans un premier temps, tout en essayant de rester le plus général possible.
+
+	Un PJ pourra, par exemple, lancer ses dés, consulter sa fiche de personnage, la modifier si besoin est, consulter ses sorts préparés, ou son inventaire, ... Là encore, beaucoup de contenu à prendre en compte.
+
+	Ainsi, ce projet vise à proposer une plateforme pour rendre les jeux de rôles dits "papiers" plus accessibles, et moins contraignant.
