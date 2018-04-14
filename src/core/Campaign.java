@@ -1,7 +1,7 @@
 package core;
 
-import users.GameMaster;
-import users.PlayerCharacter;
+import players.GameMaster;
+import players.Player;
 
 public class Campaign {
 
@@ -13,7 +13,7 @@ public class Campaign {
 	public String id;
 	public String name;
 	public GameMaster gm;
-	public PlayerCharacter[] pc;
+	public Player[] pc;
 	
 	
 	

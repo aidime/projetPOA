@@ -1,4 +1,4 @@
-package users;
+package players;
 
 import java.util.Map;
 
@@ -35,6 +35,23 @@ public class Skills {
 	 * ----------GET/SETTERS---------
 	 * ==============================
 	 */
+
+	public Map<String, Integer> get_skills() {
+		return _skills;
+	}
+
+
+	public void set_skills(Map<String, Integer> _skills) {
+		this._skills = _skills;
+	}
+
+	
+	
+	/*
+	 * ==============================
+	 * ------------METHODS-----------
+	 * ==============================
+	 */
 	public int getSkillValue(String name) {
 		int val = 0;
 		for (Map.Entry<String, Integer> entry : _skills.entrySet()) {
@@ -46,13 +63,6 @@ public class Skills {
 	}
 
 
-	
-	
-	/*
-	 * ==============================
-	 * ------------METHODS-----------
-	 * ==============================
-	 */
 
 	
 }

@@ -1,4 +1,4 @@
-package users;
+package players;
 
 public class PlayerSheet {
 

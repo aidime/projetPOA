@@ -1,7 +1,7 @@
 package ui;
 
-import users.*;
 import core.*;
+import players.*;
 
 public class App {
 
