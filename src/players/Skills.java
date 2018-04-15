@@ -52,14 +52,24 @@ public class Skills {
 	 * ------------METHODS-----------
 	 * ==============================
 	 */
-	public int getSkillValue(String name) {
-		int val = 0;
+//	public int getSkillValue(String skillname) {
+//		int val = 0;
+//		for (Map.Entry<String, Integer> entry : _skills.entrySet()) {
+//			if(skillname.equals(entry.getKey())){
+//				val = entry.getValue().intValue();
+//			}
+//		}
+//		return val;
+//	}
+	
+	
+	
+	public void increaseSkillvalue(String skillname, int increase) {
 		for (Map.Entry<String, Integer> entry : _skills.entrySet()) {
-			if(name.equals(entry.getKey())){
-				val = entry.getValue().intValue();
+			if(skillname.equals(entry.getKey())){
+				entry.setValue(entry.getValue().intValue() + increase);
 			}
 		}
-		return val;
 	}
 
 

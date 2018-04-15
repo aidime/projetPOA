@@ -1,8 +1,16 @@
 package players;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	/*
 	 * ==============================
 	 * ----------ATTRIBUTES----------
@@ -13,6 +21,7 @@ public class Player {
 	public String _nickName;
 	public int _level;
 	public int _health;
+	public int _initiative;
 	public Skills _skills;
 	
 	
@@ -29,21 +38,24 @@ public class Player {
 		_nickName = nickname;
 		_level = 1;
 		_health = 10;
+		_initiative = 100;
 		_skills = null;
 	}
 	
 	//creates a character at a certain level and with certain skills entered in the form
 	//used to get a saved character back into the app
-	public Player(int id, String name, String nickname, int level, int health, Skills skills) {
+	public Player(int id, String name, String nickname, int level, int health, int initiative, Skills skills) {
 		_id = id;
 		_name = name;
 		_nickName = nickname;
 		_level = level;
 		_health = health;
+		_initiative = initiative;
 		_skills = skills;
 	}
 	
 	
+
 
 	/*
 	 * ==============================
@@ -90,6 +102,14 @@ public class Player {
 		_health = health;
 	}
 	
+	public int get_initiative() {
+		return _initiative;
+	}
+
+	public void set_initiative(int _initiative) {
+		this._initiative = _initiative;
+	}
+	
 	public Skills get_skills() {
 		return _skills;
 	}
@@ -104,4 +124,21 @@ public class Player {
 	 * ------------METHODS-----------
 	 * ==============================
 	 */
+	public void savePlayerState(Player player) {
+		//TODO
+		//serialize(player, player._nickName);
+	}
+	
+	public void loadPlayerState(String playerName) {
+		//TODO
+		//deserialize(playerName);
+	}
+	
+	public void playerDamage(int damage) {
+		_health -= damage;
+	}
+	
+	public void playerHeal(int healAmount) {
+		_health += healAmount;
+	}
 }

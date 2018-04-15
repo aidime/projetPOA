@@ -1,12 +1,15 @@
 package core;
 
-public class Dice {
+public class DiceRolls {
 
 	/*
 	 * ==============================
 	 * ----------ATTRIBUTES----------
 	 * ==============================
 	 */
+	public int diceFaces;
+	public int numberOfDices;
+	public int passingRoll;
 	
 	
 	
@@ -15,6 +18,17 @@ public class Dice {
 	 * ----------GET/SETTERS---------
 	 * ==============================
 	 */
+	public void setDiceFaces(int diceFaces) {
+		this.diceFaces = diceFaces;
+	}
+	
+	public void setNumberOfDices(int numberOfDices) {
+		this.numberOfDices = numberOfDices;
+	}
+	
+	public void setPassingRoll(int passingRoll) {
+		this.passingRoll = passingRoll;
+	}
 	
 	
 	
