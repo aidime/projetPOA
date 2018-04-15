@@ -60,3 +60,43 @@ avr. 15, 2018 5:10:06 PM ui.Application$3 keyPressed
 INFOS: caca
 avr. 15, 2018 5:10:31 PM ui.Application$3 keyPressed
 INFOS: le caca c'Est delicieux
+avr. 15, 2018 5:20:52 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 5:21:06 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 5:32:42 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 5:32:51 PM ui.Application$3 keyPressed
+INFOS: cacac
+avr. 15, 2018 5:32:55 PM ui.Application$3 keyPressed
+INFOS: qwrfwgebg
+avr. 15, 2018 5:32:55 PM ui.Application$3 keyPressed
+INFOS: wefwrvef
+avr. 15, 2018 5:32:55 PM ui.Application$3 keyPressed
+INFOS: erf
+avr. 15, 2018 5:32:56 PM ui.Application$3 keyPressed
+INFOS: v
+avr. 15, 2018 5:33:03 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 1.
+avr. 15, 2018 5:33:04 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 1.
+avr. 15, 2018 5:33:04 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 3.
+avr. 15, 2018 5:33:04 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 3.
+avr. 15, 2018 5:33:36 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 6 + 6 + 3 + 3 + 4 + 6 + 4.
+avr. 15, 2018 5:33:36 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 7 + 5 + 3 + 1 + 6 + 2 + 1.
+avr. 15, 2018 5:33:36 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 9 + 3 + 2 + 3 + 7 + 7 + 7.
+avr. 15, 2018 5:33:37 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 8 + 8 + 6 + 3 + 8 + 6 + 3.
+avr. 15, 2018 5:33:37 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 4 + 9 + 6 + 4 + 6 + 8 + 10.
+avr. 15, 2018 5:33:37 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 7 + 2 + 3 + 6 + 10 + 2 + 8.
+avr. 15, 2018 5:33:37 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 10 + 5 + 5 + 2 + 6 + 8 + 5.
+avr. 15, 2018 5:33:47 PM ui.Application$3 keyPressed
+INFOS: Aidime monte d'un niveau

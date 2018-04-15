@@ -38,6 +38,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class Application {
 
@@ -88,6 +89,22 @@ public class Application {
 	        e.printStackTrace();  
 	    } 
 		
+//        JTextArea txtrLogs = null;
+//        try {
+//		    FileReader filereader = new FileReader("tests/Logs.log");
+//		    BufferedReader reader = new BufferedReader(filereader);
+//		    String line;
+//			while ((line = reader.readLine()) != null)
+//			{
+//			    if (line.startsWith("INFOS"))
+//			    {
+//					txtrLogs.append(line + "\n");
+//			    }
+//			}
+//		} catch (IOException ioe) {
+//		    System.err.println(ioe);
+//		}
+        
 	}
 
 	/**
@@ -250,20 +267,40 @@ public class Application {
 		gbc_txtLogEntries.gridy = 9;
 		panel_4.add(txtLogEntries, gbc_txtLogEntries);
 		txtLogEntries.setColumns(10);
-		try {
-		    FileReader filereader = new FileReader("tests/Logs.log");
-		    BufferedReader reader = new BufferedReader(filereader);
-		    String line;
-			while ((line = reader.readLine()) != null)
-			{
-			    if (line.startsWith("INFOS"))
-			    {
-			        txtrLogs.append(line + "\n");
-			    }
+//		try {
+//		    FileReader filereader = new FileReader("tests/Logs.log");
+//		    BufferedReader reader = new BufferedReader(filereader);
+//		    String line;
+//			while ((line = reader.readLine()) != null)
+//			{
+//			    if (line.startsWith("INFOS"))
+//			    {
+//			        txtrLogs.append(line + "\n");
+//			    }
+//			}
+//		} catch (IOException ioe) {
+//		    System.err.println(ioe);
+//		}
+		
+		txtrLogs.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent arg0) {
+				try {
+				    FileReader filereader = new FileReader("tests/Logs.log");
+				    BufferedReader reader = new BufferedReader(filereader);
+				    String line;
+					while ((line = reader.readLine()) != null)
+					{
+					    if (line.startsWith("INFOS"))
+					    {
+					        txtrLogs.append(line + "\n");
+					    }
+					}
+				} catch (IOException ioe) {
+				    System.err.println(ioe);
+				}
 			}
-		} catch (IOException ioe) {
-		    System.err.println(ioe);
-		}
+		});
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.GRAY);
