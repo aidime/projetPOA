@@ -10,7 +10,7 @@ public class testmain {
 		Player p1 = new Player(0,"Paul","Aidime");
 		Player p2 = new Player(1,"Marion","KyZoar");
 		
-		
+		Logs.writeLog("Added players" + p1._nickName + " and " + p2._nickName + ".");
 		
 		
 		Player[] players = new Player[] {
@@ -18,8 +18,6 @@ public class testmain {
 				p2
 		};
 		
-		
-		Logs.writeLog("Added players" + p1._nickName + " and " + p2._nickName + ".");
 		
 		Campaign naheulbeuk = new Campaign(0, "Le Donjon de Naheulbeuk", players);
 		Logs.writeLog("Created new campaign named : " + naheulbeuk.name);

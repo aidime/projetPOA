@@ -23,8 +23,7 @@ public class Logs {
 	        SimpleFormatter formatter = new SimpleFormatter();  
 	        fh.setFormatter(formatter);  
 
-	        // the following statement is used to log any messages  
-	        logger.info(log);  
+	        
 
 	    } catch (SecurityException e) {  
 	        e.printStackTrace();  
@@ -32,7 +31,8 @@ public class Logs {
 	        e.printStackTrace();  
 	    }  
 
-	      
+	    // the following statement is used to log any messages  
+        logger.info(log);  
 
 	}
 	
