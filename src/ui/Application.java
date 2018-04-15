@@ -1,49 +1,48 @@
 package ui;
 
-import core.*;
-import players.*;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
-import javax.swing.JList;
+import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import java.awt.Font;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseMotionAdapter;
+import javax.swing.SpinnerNumberModel;
+
+import core.DiceRolls;
+import core.Event;
 
 public class Application {
 
 	private JFrame frmRpgmanager;
 	private JTextField txtLogEntries;
+	private JTextField txtEventtitle;
 
 	/**
 	 * Launch the application.
@@ -120,6 +119,7 @@ public class Application {
 	private void initialize() {
 		
 		Logger logger = Logger.getLogger("MyLog");
+		ArrayList<Event> eventList = new ArrayList<Event>();
 		
 		frmRpgmanager = new JFrame();
 		frmRpgmanager.setBackground(Color.BLACK);
@@ -131,21 +131,6 @@ public class Application {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmRpgmanager.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.GRAY);
-		panel.setToolTipText("Campaign");
-		tabbedPane.addTab("Campaign", null, panel, null);
-		panel.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JButton btnNewButton = new JButton("New Campaign");
-		panel.add(btnNewButton);
-		
-		JButton btnNewButton_2 = new JButton("New Campaign");
-		panel.add(btnNewButton_2);
-		
-		JButton btnNewButton_1 = new JButton("New Campaign");
-		panel.add(btnNewButton_1);
-		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.GRAY);
 		tabbedPane.addTab("Game", null, panel_4, null);
@@ -156,7 +141,7 @@ public class Application {
 		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
-		JList<Event> list = new JList<Event>();
+		JList list = new JList(eventList.toArray());
 		list.setToolTipText("eventList");
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.fill = GridBagConstraints.BOTH;
@@ -164,6 +149,10 @@ public class Application {
 		gbc_list.gridx = 0;
 		gbc_list.gridy = 0;
 		panel_4.add(list, gbc_list);
+		
+		
+		
+		
 		
 		JTextPane textPane = new JTextPane();
 		GridBagConstraints gbc_textPane = new GridBagConstraints();
@@ -306,6 +295,99 @@ public class Application {
 		panel_1.setBackground(Color.GRAY);
 		panel_1.setToolTipText("Events");
 		tabbedPane.addTab("Events", null, panel_1, null);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		JLabel lblEventList = new JLabel("Event List");
+		lblEventList.setFont(new Font("Tahoma", Font.BOLD, 16));
+		GridBagConstraints gbc_lblEventList = new GridBagConstraints();
+		gbc_lblEventList.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEventList.gridx = 2;
+		gbc_lblEventList.gridy = 1;
+		panel_1.add(lblEventList, gbc_lblEventList);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.gridheight = 6;
+		gbc_scrollPane_1.gridwidth = 11;
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 2;
+		gbc_scrollPane_1.gridy = 2;
+		panel_1.add(scrollPane_1, gbc_scrollPane_1);
+		
+		JList listEvents = new JList();
+		scrollPane_1.setViewportView(listEvents);
+		
+		JLabel lblCreateANew = new JLabel("Create a new Event");
+		lblCreateANew.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblCreateANew.setForeground(new Color(0, 0, 0));
+		GridBagConstraints gbc_lblCreateANew = new GridBagConstraints();
+		gbc_lblCreateANew.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCreateANew.gridx = 2;
+		gbc_lblCreateANew.gridy = 9;
+		panel_1.add(lblCreateANew, gbc_lblCreateANew);
+		
+		JLabel lblEventTitle = new JLabel("Event Title");
+		lblEventTitle.setForeground(Color.WHITE);
+		lblEventTitle.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		GridBagConstraints gbc_lblEventTitle = new GridBagConstraints();
+		gbc_lblEventTitle.anchor = GridBagConstraints.WEST;
+		gbc_lblEventTitle.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEventTitle.gridx = 2;
+		gbc_lblEventTitle.gridy = 10;
+		panel_1.add(lblEventTitle, gbc_lblEventTitle);
+		
+		txtEventtitle = new JTextField();
+		GridBagConstraints gbc_txtEventtitle = new GridBagConstraints();
+		gbc_txtEventtitle.gridwidth = 10;
+		gbc_txtEventtitle.insets = new Insets(0, 0, 5, 5);
+		gbc_txtEventtitle.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtEventtitle.gridx = 2;
+		gbc_txtEventtitle.gridy = 11;
+		panel_1.add(txtEventtitle, gbc_txtEventtitle);
+		txtEventtitle.setColumns(10);
+		
+		JLabel lblEventContent = new JLabel("Event Content");
+		lblEventContent.setForeground(Color.WHITE);
+		lblEventContent.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		GridBagConstraints gbc_lblEventContent = new GridBagConstraints();
+		gbc_lblEventContent.anchor = GridBagConstraints.WEST;
+		gbc_lblEventContent.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEventContent.gridx = 2;
+		gbc_lblEventContent.gridy = 12;
+		panel_1.add(lblEventContent, gbc_lblEventContent);
+		
+		JTextPane txtEventContent = new JTextPane();
+		GridBagConstraints gbc_txtEventContent = new GridBagConstraints();
+		gbc_txtEventContent.gridheight = 5;
+		gbc_txtEventContent.gridwidth = 11;
+		gbc_txtEventContent.insets = new Insets(0, 0, 5, 5);
+		gbc_txtEventContent.fill = GridBagConstraints.BOTH;
+		gbc_txtEventContent.gridx = 2;
+		gbc_txtEventContent.gridy = 13;
+		panel_1.add(txtEventContent, gbc_txtEventContent);
+		
+		JButton btnNewButton_3 = new JButton("Create Event");
+		btnNewButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Event event = new Event(txtEventtitle.getText(), txtEventContent.getText());
+				eventList.add(event);
+				
+				txtEventtitle.setText("");
+				txtEventContent.setText("");
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
+		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_3.gridx = 2;
+		gbc_btnNewButton_3.gridy = 18;
+		panel_1.add(btnNewButton_3, gbc_btnNewButton_3);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.GRAY);
@@ -316,6 +398,25 @@ public class Application {
 		panel_3.setBackground(Color.GRAY);
 		panel_3.setToolTipText("Players");
 		tabbedPane.addTab("Players", null, panel_3, null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.GRAY);
+		panel.setToolTipText("Campaign");
+		tabbedPane.addTab("Campaign", null, panel, null);
+		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JButton btnNewButton = new JButton("New Campaign");
+		panel.add(btnNewButton);
+		
+		JButton btnNewButton_2 = new JButton("New Campaign");
+		panel.add(btnNewButton_2);
+		
+		JButton btnNewButton_1 = new JButton("New Campaign");
+		panel.add(btnNewButton_1);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(Color.BLACK);
+		tabbedPane.addTab("Help", null, panel_5, null);
 	}
 
 }
