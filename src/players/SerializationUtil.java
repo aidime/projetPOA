@@ -17,7 +17,8 @@ public class SerializationUtil {
 
     //deserialize to Object from given file. We use the general Object so as
     //that it can work for any Java Class.
-    public static Object deserialize(String fileName) throws IOException,
+    public static Object deserialize(String fileName) 
+    		throws IOException,
             ClassNotFoundException {
         FileInputStream fis = new FileInputStream(fileName);
         BufferedInputStream bis = new BufferedInputStream(fis);

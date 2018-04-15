@@ -1,80 +1,26 @@
 package tests;
 
-import players.*;
-
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import core.*;
+import core.Campaign;
+import core.DiceRolls;
+import players.*;
 
 public class testmain {
 
-	public static void main (String[] args) throws IOException {
+	public static void main (String[] args) throws IOException, ClassNotFoundException {
+				
+		//create a  file
+        File logFile = new File("tests/Logs.log");
+        File parent = logFile.getParentFile();
+        if (!parent.exists() && !parent.mkdirs()) {
+            throw new IllegalStateException("Couldn't create dir: " + parent);
+        }
 		
-//		Logger logger = Logger.getLogger("MyLog");  
-//	    FileHandler fh;
-//	    File logging = new File("logging.txt");
-//	    logging.getParentFile().mkdirs(); // correct!
-//	    if (!logging.exists()) {
-//	        logging.createNewFile();
-//	    } 
-//	    //String campaignName = ""; //TODO take the campaign name from the current campaign, or better, the id
-//
-//	    try {  
-//
-//	        // This block configure the logger with handler and formatter  
-//	        fh = new FileHandler("C:/temp/test/MyLogFile.log", true);  //TODO replace according to changes
-//	        logger.addHandler(fh);
-//	        SimpleFormatter formatter = new SimpleFormatter();  
-//	        fh.setFormatter(formatter);  
-//
-//	        logger.info("First log");
-//
-//	    } catch (SecurityException e) {  
-//	        e.printStackTrace();  
-//	    } catch (IOException e) {  
-//	        e.printStackTrace();  
-//	    }  
-//	    
-//	    
-//	    BufferedWriter writer = null;
-//        try {
-//            //create a temporary file
-//            String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-//            File logFile = new File(timeLog);
-//
-//            // This will output the full path where the file will be written to...
-//            System.out.println(logFile.getCanonicalPath());
-//
-//            writer = new BufferedWriter(new FileWriter(logFile,true));
-//            writer.write("Hello world!");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                // Close the writer regardless of what happens...
-//                writer.close();
-//            } catch (Exception e) {
-//            }
-//        }
-	    
-        
-	    
-	    // the following statement is used to log any messages  
-        //logger.info(log); 
-		
-		
-        
-        //create a temporary file
-        File logFile = new File("Logs.log");
-
         // This will output the full path where the file will be written to...
         System.out.println(logFile.getCanonicalPath());
 
@@ -96,10 +42,13 @@ public class testmain {
 	        e.printStackTrace();  
 	    } 
         
-        
+          
         
 		Player p1 = new Player(0,"Paul","Aidime");
 		Player p2 = new Player(1,"Marion","KyZoar");
+		
+		p1._skills = new Skills(1,2,3,4,5,6,7);
+		p1._skills = new Skills(7,6,5,4,3,2,1);
 		
 		logger.info("Added players " + p1._nickName + " and " + p2._nickName + ".");
 		
@@ -115,6 +64,15 @@ public class testmain {
 		
 		logger.info("Lets try to roll two six-faced dices...");
 		DiceRolls.rollTheDices(6,2,logger);
+		
+		//TODO test serialization
+		//Player p3 = new Player("Aidime");
+		//
+		//logger.info(p1.toString());
+		//logger.info(p3.toString());
+		
+		//p3.set_health(5);
+		
 		
 	}
 	

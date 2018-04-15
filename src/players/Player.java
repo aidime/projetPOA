@@ -1,7 +1,10 @@
 package players;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Map;
 
 public class Player implements Serializable{
 
@@ -25,7 +28,7 @@ public class Player implements Serializable{
 	public int _initiative;
 	public Skills _skills;
 	public String[] _inventory;
-	
+	//TODO manque l'xp ?
 	
 	
 	/*
@@ -34,7 +37,7 @@ public class Player implements Serializable{
 	 * ==============================
 	 */
 	//creates a brand new character, initialized with no skills and at level 1
-	public Player(int id, String name, String nickname) {
+	public Player(int id, String name, String nickname) throws IOException {
 		_id = id;
 		_name = name;
 		_nickName = nickname;
@@ -43,23 +46,38 @@ public class Player implements Serializable{
 		_initiative = 100;
 		_skills = null;
 		_inventory = null;
+		
+		File playerFile = new File("tests/players/"+_nickName);
+        File parent = playerFile.getParentFile();
+        if (!parent.exists() && !parent.mkdirs()) {
+            throw new IllegalStateException("Couldn't create dir: " + parent);
+        }
+        
+        SerializationUtil.serialize(this,"tests/players/"+_nickName);
+        
+	}
+	
+	public Player(String fileName) throws ClassNotFoundException, IOException {
+		SerializationUtil.deserialize("tests/players/"+fileName);
 	}
 	
 	//creates a character at a certain level and with certain skills entered in the form
 	//used to get a saved character back into the app
 	//TODO do we really need that with the (de)serialization ?
-	public Player(int id, String name, String nickname, int level, int health, int initiative, Skills skills, String[] inventory) {
-		_id = id;
-		_name = name;
-		_nickName = nickname;
-		_level = level;
-		_health = health;
-		_initiative = initiative;
-		_skills = skills;
-		_inventory = inventory;
-	}
+//	public Player(int id, String name, String nickname, int level, int health, int initiative, Skills skills, String[] inventory) {
+//		_id = id;
+//		_name = name;
+//		_nickName = nickname;
+//		_level = level;
+//		_health = health;
+//		_initiative = initiative;
+//		_skills = skills;
+//		_inventory = inventory;
+//	}
 	
 	
+
+
 
 
 	/*
@@ -145,5 +163,18 @@ public class Player implements Serializable{
 	
 	public void playerHeal(int healAmount) {
 		_health += healAmount;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Player id : " + _id 
+				+ "\nName : " + _name 
+				+ "\nNickName : " + _nickName 
+				+ "\nLevel : " + _level
+				+ "\nHealth : " + _health 
+				+ "\nInitiative : " + _initiative 
+				+ "\nSPECIAL : " + _skills._skills.toString()
+				+ "\nInventory : " + Arrays.toString(_inventory);
 	}
 }
