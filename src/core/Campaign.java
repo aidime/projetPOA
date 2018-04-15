@@ -8,7 +8,7 @@ public class Campaign {
 	 * ----------ATTRIBUTES----------
 	 * ==============================
 	 */
-	public String id;
+	public int id;
 	public String name;
 	public Player[] players;
 	
@@ -19,7 +19,29 @@ public class Campaign {
 	 * ----------GET/SETTERS---------
 	 * ==============================
 	 */
+	public int getId() {
+		return id;
+	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public Player[] getPlayers() {
+		return players;
+	}
+	
+	public void setPlayers(Player[] players) {
+		this.players = players;
+	}
 	
 	
 	/*
@@ -27,4 +49,6 @@ public class Campaign {
 	 * ------------METHODS-----------
 	 * ==============================
 	 */
+	
+	//TODO serialize and deserialize
 }

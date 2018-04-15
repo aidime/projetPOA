@@ -1,5 +1,6 @@
 package players;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 public class Player implements Serializable{
@@ -124,14 +125,14 @@ public class Player implements Serializable{
 	 * ------------METHODS-----------
 	 * ==============================
 	 */
-	public void savePlayerState(Player player) {
+	public void savePlayerState(Player player) throws IOException {
 		//TODO
-		//serialize(player, player._nickName);
+		SerializationUtil.serialize(player, player._nickName);
 	}
 	
-	public void loadPlayerState(String playerName) {
+	public void loadPlayerState(String playerName) throws ClassNotFoundException, IOException {
 		//TODO
-		//deserialize(playerName);
+		SerializationUtil.deserialize(playerName);
 	}
 	
 	public void playerDamage(int damage) {

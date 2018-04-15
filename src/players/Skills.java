@@ -2,6 +2,8 @@ package players;
 
 import java.util.Map;
 
+import core.Logs;
+
 public class Skills {
 
 	/*
@@ -70,6 +72,9 @@ public class Skills {
 				entry.setValue(entry.getValue().intValue() + increase);
 			}
 		}
+		
+		//TODO Logs.writeLog(skillname + " of " + nickname + " increased by " + increase.toString() + ".");
+		
 	}
 
 

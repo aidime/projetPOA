@@ -13,12 +13,12 @@ public class Logs {
 	    Logger logger = Logger.getLogger("MyLog");  
 	    FileHandler fh;  
 	    
-	    String campaignName = "";
+	    String campaignName = "";//TODO take the campaign name from the current campaign, or better, the id
 
 	    try {  
 
 	        // This block configure the logger with handler and formatter  
-	        fh = new FileHandler("C:/RPGManager/"+campaignName+"/"+campaignName+".log", true);  
+	        fh = new FileHandler("C:/RPGManager/"+campaignName+"/"+campaignName+".log", true);  //TODO replace according to changes
 	        logger.addHandler(fh);
 	        SimpleFormatter formatter = new SimpleFormatter();  
 	        fh.setFormatter(formatter);  
