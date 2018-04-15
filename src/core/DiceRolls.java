@@ -18,6 +18,20 @@ public class DiceRolls {
 	
 	/*
 	 * ==============================
+	 * ---------CONSTRUCTORS---------
+	 * ==============================
+	 */
+	public DiceRolls(int faces, int number, int passing) {
+		diceFaces = faces;
+		numberOfDices = number;
+		passingRoll = passing;
+	}
+	
+	
+	
+	
+	/*
+	 * ==============================
 	 * ----------GET/SETTERS---------
 	 * ==============================
 	 */
@@ -40,7 +54,7 @@ public class DiceRolls {
 	 * ------------METHODS-----------
 	 * ==============================
 	 */
-	public int rollTheDices(int faces, int number, int passingRoll) {
+	public static int rollTheDices(int faces, int number) {
 		int result = 0;
 		String log = "Rolls : ";
 		Random rand = new Random();
@@ -59,5 +73,6 @@ public class DiceRolls {
 		return result;
 	}
 
+	//TODO roll with a passing condition
 	
 }

@@ -2,7 +2,7 @@ package players;
 
 import java.util.Map;
 
-import core.Logs;
+//import core.Logs;
 
 public class Skills {
 

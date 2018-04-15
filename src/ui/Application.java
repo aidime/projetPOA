@@ -1,23 +1,17 @@
 package ui;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import players.*;
 import core.*;
-import java.awt.Color;
-import javax.swing.JTabbedPane;
+import players.*;
+
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JMenu;
-import javax.swing.SwingConstants;
-import javax.swing.JSplitPane;
-import javax.swing.JButton;
-import javax.swing.JInternalFrame;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class Application {
 
