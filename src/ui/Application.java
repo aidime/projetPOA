@@ -11,26 +11,44 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import java.awt.Font;
+import javax.swing.JTextPane;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Application {
 
 	private JFrame frmRpgmanager;
 	private JTextField txtLogEntries;
-	private JTextField txtNumber;
-	private JTextField txtFaces;
 
 	/**
 	 * Launch the application.
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -41,6 +59,35 @@ public class Application {
 				}
 			}
 		});
+		
+		//create a  file
+        File logFile = new File("tests/Logs.log");
+        File parent = logFile.getParentFile();
+        if (!parent.exists() && !parent.mkdirs()) {
+            throw new IllegalStateException("Couldn't create dir: " + parent);
+        }
+		
+        // This will output the full path where the file will be written to...
+        System.out.println(logFile.getCanonicalPath());
+
+		Logger logger = Logger.getLogger("MyLog");  
+	    FileHandler fh;
+        
+        try {  
+	        //This block configure the logger with handler and formatter  
+	        fh = new FileHandler(logFile.getCanonicalPath(), true);  //TODO replace according to changes
+	        logger.addHandler(fh);
+	        SimpleFormatter formatter = new SimpleFormatter();  
+	        fh.setFormatter(formatter);  
+
+	        logger.info("First log");
+
+	    } catch (SecurityException e) {  
+	        e.printStackTrace();  
+	    } catch (IOException e) {  
+	        e.printStackTrace();  
+	    } 
+		
 	}
 
 	/**
@@ -54,6 +101,9 @@ public class Application {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		Logger logger = Logger.getLogger("MyLog");
+		
 		frmRpgmanager = new JFrame();
 		frmRpgmanager.setBackground(Color.BLACK);
 		frmRpgmanager.setResizable(false);
@@ -82,52 +132,138 @@ public class Application {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.GRAY);
 		tabbedPane.addTab("Game", null, panel_4, null);
-		panel_4.setLayout(new MigLayout("", "[grow]", "[grow][][][][][][][][][][][][][][][grow][][][]"));
+		GridBagLayout gbl_panel_4 = new GridBagLayout();
+		gbl_panel_4.columnWidths = new int[]{727, 0};
+		gbl_panel_4.rowHeights = new int[]{74, 160, 17, 14, 20, 14, 20, 23, 151, 20, 0};
+		gbl_panel_4.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_4.setLayout(gbl_panel_4);
 		
-		JList list = new JList();
+		JList<Event> list = new JList<Event>();
 		list.setToolTipText("eventList");
-		panel_4.add(list, "cell 0 0 1 3,grow");
+		GridBagConstraints gbc_list = new GridBagConstraints();
+		gbc_list.fill = GridBagConstraints.BOTH;
+		gbc_list.insets = new Insets(0, 0, 5, 0);
+		gbc_list.gridx = 0;
+		gbc_list.gridy = 0;
+		panel_4.add(list, gbc_list);
+		
+		JTextPane textPane = new JTextPane();
+		GridBagConstraints gbc_textPane = new GridBagConstraints();
+		gbc_textPane.fill = GridBagConstraints.BOTH;
+		gbc_textPane.insets = new Insets(0, 0, 5, 0);
+		gbc_textPane.gridx = 0;
+		gbc_textPane.gridy = 1;
+		panel_4.add(textPane, gbc_textPane);
 		
 		JLabel lblRollTheDices = new JLabel("Roll the dices");
-		panel_4.add(lblRollTheDices, "cell 0 9,alignx right");
+		lblRollTheDices.setFont(new Font("Tahoma", Font.BOLD, 14));
+		GridBagConstraints gbc_lblRollTheDices = new GridBagConstraints();
+		gbc_lblRollTheDices.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblRollTheDices.insets = new Insets(0, 0, 5, 0);
+		gbc_lblRollTheDices.gridx = 0;
+		gbc_lblRollTheDices.gridy = 2;
+		panel_4.add(lblRollTheDices, gbc_lblRollTheDices);
 		
-		txtNumber = new JTextField();
-		txtNumber.setToolTipText("Number of dices to roll");
-		txtNumber.setText("Number");
-		panel_4.add(txtNumber, "cell 0 10,alignx right");
-		txtNumber.setColumns(10);
+		JLabel lblNumberOfFaces = new JLabel("Number of Faces");
+		lblNumberOfFaces.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblNumberOfFaces = new GridBagConstraints();
+		gbc_lblNumberOfFaces.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblNumberOfFaces.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNumberOfFaces.gridx = 0;
+		gbc_lblNumberOfFaces.gridy = 3;
+		panel_4.add(lblNumberOfFaces, gbc_lblNumberOfFaces);
 		
-		txtFaces = new JTextField();
-		txtFaces.setToolTipText("Number of faces of the dices");
-		txtFaces.setText("Faces");
-		panel_4.add(txtFaces, "cell 0 11,alignx right");
-		txtFaces.setColumns(10);
+		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(4, 4, 20, 2));
+		GridBagConstraints gbc_spinner = new GridBagConstraints();
+		gbc_spinner.anchor = GridBagConstraints.NORTHEAST;
+		gbc_spinner.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner.gridx = 0;
+		gbc_spinner.gridy = 4;
+		panel_4.add(spinner, gbc_spinner);
+		
+		JSpinner spinner_1 = new JSpinner();
+		spinner_1.setModel(new SpinnerNumberModel(1, 1, 9, 1));
+		GridBagConstraints gbc_spinner_1 = new GridBagConstraints();
+		gbc_spinner_1.anchor = GridBagConstraints.NORTHEAST;
+		gbc_spinner_1.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner_1.gridx = 0;
+		gbc_spinner_1.gridy = 6;
+		panel_4.add(spinner_1, gbc_spinner_1);
 		
 		JButton btnRoll = new JButton("Roll!");
-//		btnRoll.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent arg0) {
-//				int n;
-//				int f;
-//				try{
-//					n = (int)txtNumber.getText();
-//					f = (int)txtFaces.getText();
-//				} catch {
-//					
-//				}
-//				}
-//			}
-//		});
-		panel_4.add(btnRoll, "cell 0 12,alignx right");
+		btnRoll.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				DiceRolls.rollTheDices((int)spinner.getValue(), (int)spinner_1.getValue(), logger);
+			}
+		});
+		
+		GridBagConstraints gbc_btnRoll = new GridBagConstraints();
+		gbc_btnRoll.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnRoll.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRoll.gridx = 0;
+		gbc_btnRoll.gridy = 7;
+		panel_4.add(btnRoll, gbc_btnRoll);
+		
+		JLabel lblNumberOfDices = new JLabel("Number of Dices");
+		lblNumberOfDices.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblNumberOfDices = new GridBagConstraints();
+		gbc_lblNumberOfDices.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblNumberOfDices.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNumberOfDices.gridx = 0;
+		gbc_lblNumberOfDices.gridy = 5;
+		panel_4.add(lblNumberOfDices, gbc_lblNumberOfDices);
+		
+
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 8;
+		panel_4.add(scrollPane, gbc_scrollPane);
 		
 		JTextArea txtrLogs = new JTextArea();
-		txtrLogs.setText("Logs");
-		panel_4.add(txtrLogs, "cell 0 13 1 5,grow");
+		scrollPane.setViewportView(txtrLogs);
+		txtrLogs.setLineWrap(true);
+		txtrLogs.setWrapStyleWord(true);
 		
+	    
 		txtLogEntries = new JTextField();
-		txtLogEntries.setText("Log entries");
-		panel_4.add(txtLogEntries, "cell 0 18,growx");
+		txtLogEntries.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+	            {
+	                logger.info(txtLogEntries.getText());
+	                txtLogEntries.setText("");
+	            }
+			}
+		});
+		GridBagConstraints gbc_txtLogEntries = new GridBagConstraints();
+		gbc_txtLogEntries.anchor = GridBagConstraints.NORTH;
+		gbc_txtLogEntries.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLogEntries.gridx = 0;
+		gbc_txtLogEntries.gridy = 9;
+		panel_4.add(txtLogEntries, gbc_txtLogEntries);
 		txtLogEntries.setColumns(10);
+		try {
+		    FileReader filereader = new FileReader("tests/Logs.log");
+		    BufferedReader reader = new BufferedReader(filereader);
+		    String line;
+			while ((line = reader.readLine()) != null)
+			{
+			    if (line.startsWith("INFOS"))
+			    {
+			        txtrLogs.append(line + "\n");
+			    }
+			}
+		} catch (IOException ioe) {
+		    System.err.println(ioe);
+		}
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.GRAY);
