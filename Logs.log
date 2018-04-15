@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-04-15T11:14:13</date>
+  <millis>1523805253094</millis>
+  <sequence>0</sequence>
+  <logger>MyLog</logger>
+  <level>INFO</level>
+  <class>tests.testmain</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>First log</message>
+</record>
+<record>
+  <date>2018-04-15T11:14:13</date>
+  <millis>1523805253133</millis>
+  <sequence>1</sequence>
+  <logger>MyLog</logger>
+  <level>INFO</level>
+  <class>tests.testmain</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Added players Aidime and KyZoar.</message>
+</record>
+<record>
+  <date>2018-04-15T11:14:13</date>
+  <millis>1523805253134</millis>
+  <sequence>2</sequence>
+  <logger>MyLog</logger>
+  <level>INFO</level>
+  <class>tests.testmain</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Created new campaign named : Le Donjon de Naheulbeuk.</message>
+</record>
+<record>
+  <date>2018-04-15T11:14:13</date>
+  <millis>1523805253135</millis>
+  <sequence>3</sequence>
+  <logger>MyLog</logger>
+  <level>INFO</level>
+  <class>tests.testmain</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Lets try to roll two six-faced dices...</message>
+</record>
+<record>
+  <date>2018-04-15T11:14:13</date>
+  <millis>1523805253137</millis>
+  <sequence>4</sequence>
+  <logger>MyLog</logger>
+  <level>INFO</level>
+  <class>core.DiceRolls</class>
+  <method>rollTheDices</method>
+  <thread>1</thread>
+  <message>Rolls : 2 + 3.</message>
+</record>
+</log>

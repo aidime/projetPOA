@@ -1,6 +1,7 @@
 package core;
 
 import java.util.Random;
+import java.util.logging.Logger;
 
 
 public class DiceRolls {
@@ -54,7 +55,7 @@ public class DiceRolls {
 	 * ------------METHODS-----------
 	 * ==============================
 	 */
-	public static int rollTheDices(int faces, int number) {
+	public static int rollTheDices(int faces, int number, Logger logger) {
 		int result = 0;
 		String log = "Rolls : ";
 		Random rand = new Random();
@@ -68,7 +69,7 @@ public class DiceRolls {
 			result += randInt;
 		}
 		
-		Logs.writeLog(log);
+		logger.info(log);
 		
 		return result;
 	}
