@@ -1,9 +1,9 @@
 package players;
 
-import java.io.File;
+//import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class Player implements Serializable{
 
@@ -19,14 +19,11 @@ public class Player implements Serializable{
 	 * ----------ATTRIBUTES----------
 	 * ==============================
 	 */
-	public int _id;
-	public String _name;
 	public String _nickName;
 	public int _level;
 	public int _health;
 	public int _initiative;
 	public Skills _skills;
-	public String[] _inventory;
 	
 	
 	/*
@@ -35,29 +32,26 @@ public class Player implements Serializable{
 	 * ==============================
 	 */
 	//creates a brand new character, initialized with no skills and at level 1
-	public Player(int id, String name, String nickname) throws IOException {
-		_id = id;
-		_name = name;
+	public Player(String nickname) /*throws IOException*/ {
 		_nickName = nickname;
 		_level = 1;
 		_health = 10;
 		_initiative = 100;
 		_skills = null;
-		_inventory = null;
 		
-		File playerFile = new File("tests/players/"+_nickName);
-        File parent = playerFile.getParentFile();
-        if (!parent.exists() && !parent.mkdirs()) {
-            throw new IllegalStateException("Couldn't create dir: " + parent);
-        }
-        
-        SerializationUtil.serialize(this,"tests/players/"+_nickName);
+//		File playerFile = new File("tests/players/"+_nickName);
+//        File parent = playerFile.getParentFile();
+//        if (!parent.exists() && !parent.mkdirs()) {
+//            throw new IllegalStateException("Couldn't create dir: " + parent);
+//        }
+//        
+//        SerializationUtil.serialize(this,"tests/players/"+_nickName);
         
 	}
 	
-	public Player(String fileName) throws ClassNotFoundException, IOException {
-		SerializationUtil.deserialize("tests/players/"+fileName);
-	}
+//	public Player(String fileName) throws ClassNotFoundException, IOException {
+//		SerializationUtil.deserialize("tests/players/"+fileName);
+//	}
 	
 
 
@@ -66,23 +60,7 @@ public class Player implements Serializable{
 	 * ==============================
 	 * ----------GET/SETTERS---------
 	 * ==============================
-	 */
-	public int get_id() {
-		return _id;
-	}
-
-	public void set_id(int _id) {
-		this._id = _id;
-	}
-
-	public String get_name() {
-		return _name;
-	}
-
-	public void set_name(String _name) {
-		this._name = _name;
-	}
-	
+	 */	
 	public String get_nickName() {
 		return _nickName;
 	}
@@ -143,13 +121,10 @@ public class Player implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Player id : " + _id 
-				+ "\nName : " + _name 
-				+ "\nNickName : " + _nickName 
+		return "\nNickName : " + _nickName 
 				+ "\nLevel : " + _level
 				+ "\nHealth : " + _health 
 				+ "\nInitiative : " + _initiative 
-				+ "\nSPECIAL : " + _skills._skills.toString()
-				+ "\nInventory : " + Arrays.toString(_inventory);
+				+ "\nSPECIAL : " + _skills._skills.toString();
 	}
 }

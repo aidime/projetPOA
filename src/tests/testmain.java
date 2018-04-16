@@ -44,8 +44,8 @@ public class testmain {
         
           
         
-		Player p1 = new Player(0,"Paul","Aidime");
-		Player p2 = new Player(1,"Marion","KyZoar");
+		Player p1 = new Player("Aidime");
+		Player p2 = new Player("KyZoar");
 		
 		p1._skills = new Skills(1,2,3,4,5,6,7);
 		p1._skills = new Skills(7,6,5,4,3,2,1);

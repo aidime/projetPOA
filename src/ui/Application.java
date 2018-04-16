@@ -37,8 +37,11 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 
+import com.sun.xml.internal.ws.api.pipe.ThrowableContainerPropertySet;
+
 import core.DiceRolls;
 import core.Event;
+import players.Player;
 
 public class Application {
 
@@ -47,13 +50,19 @@ public class Application {
 	private JTextField txtEventtitle;
 	private JTextField eventTitleGame;
 
-	
+	ArrayList<Player> playerList = new ArrayList<Player>();
 	ArrayList<Event> eventList = new ArrayList<Event>();
 	Event dummy1 = new Event("Dummy1", "I am a dummy event destined to be here only to be played with by devs");
 	Event dummy2 = new Event("Dummy2", "Dummy events return...");
 	
 	
 	Event currentEvent = new Event("Load an event to display it below","");
+	Player currentPlayer = new Player("dummy");
+
+	
+	private JTextField txtPlayerCreate;
+	private JTextField txtPlayerLoad;
+	private JTextField Nickname;
 	
 	
 	/**
@@ -481,6 +490,355 @@ public class Application {
 		panel_3.setBackground(Color.GRAY);
 		panel_3.setToolTipText("Players");
 		tabbedPane.addTab("Players", null, panel_3, null);
+		GridBagLayout gbl_panel_3 = new GridBagLayout();
+		gbl_panel_3.columnWidths = new int[] {50, 50, 50, 50, 200, 50, 50, 50, 50};
+		gbl_panel_3.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_3.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_3.setLayout(gbl_panel_3);
+		
+		JLabel lblCreatePlayer = new JLabel("Create Player");
+		lblCreatePlayer.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblCreatePlayer.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblCreatePlayer = new GridBagConstraints();
+		gbc_lblCreatePlayer.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCreatePlayer.gridx = 1;
+		gbc_lblCreatePlayer.gridy = 1;
+		panel_3.add(lblCreatePlayer, gbc_lblCreatePlayer);
+		
+		JLabel lblNickname = new JLabel("Nickname");
+		GridBagConstraints gbc_lblNickname = new GridBagConstraints();
+		gbc_lblNickname.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNickname.gridx = 3;
+		gbc_lblNickname.gridy = 1;
+		panel_3.add(lblNickname, gbc_lblNickname);
+		
+		txtPlayerCreate = new JTextField();
+		GridBagConstraints gbc_txtPlayerCreate = new GridBagConstraints();
+		gbc_txtPlayerCreate.insets = new Insets(0, 0, 5, 5);
+		gbc_txtPlayerCreate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPlayerCreate.gridx = 4;
+		gbc_txtPlayerCreate.gridy = 1;
+		panel_3.add(txtPlayerCreate, gbc_txtPlayerCreate);
+		txtPlayerCreate.setColumns(10);
+		
+		JButton btnCreate = new JButton("Create");
+		btnCreate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+//				try {
+					playerList.add(new Player(txtPlayerCreate.getText()));
+//				} catch (IOException e1) {
+//					e1.printStackTrace();
+//				}
+					txtPlayerCreate.setText("");
+			}
+		});
+		GridBagConstraints gbc_btnCreate = new GridBagConstraints();
+		gbc_btnCreate.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreate.gridx = 5;
+		gbc_btnCreate.gridy = 1;
+		panel_3.add(btnCreate, gbc_btnCreate);
+		
+		JLabel lblLoadPlayerSheet = new JLabel("Load Player Sheet");
+		lblLoadPlayerSheet.setForeground(Color.WHITE);
+		lblLoadPlayerSheet.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblLoadPlayerSheet = new GridBagConstraints();
+		gbc_lblLoadPlayerSheet.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLoadPlayerSheet.gridx = 1;
+		gbc_lblLoadPlayerSheet.gridy = 3;
+		panel_3.add(lblLoadPlayerSheet, gbc_lblLoadPlayerSheet);
+		
+		JLabel label = new JLabel("Nickname");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 3;
+		gbc_label.gridy = 3;
+		panel_3.add(label, gbc_label);
+		
+		txtPlayerLoad = new JTextField();
+		txtPlayerLoad.setColumns(10);
+		GridBagConstraints gbc_txtPlayerLoad = new GridBagConstraints();
+		gbc_txtPlayerLoad.insets = new Insets(0, 0, 5, 5);
+		gbc_txtPlayerLoad.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPlayerLoad.gridx = 4;
+		gbc_txtPlayerLoad.gridy = 3;
+		panel_3.add(txtPlayerLoad, gbc_txtPlayerLoad);
+		
+		
+		
+		JLabel lblPlayerSheet = new JLabel("Player Sheet");
+		lblPlayerSheet.setForeground(Color.WHITE);
+		lblPlayerSheet.setFont(new Font("Tahoma", Font.BOLD, 15));
+		GridBagConstraints gbc_lblPlayerSheet = new GridBagConstraints();
+		gbc_lblPlayerSheet.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPlayerSheet.gridx = 4;
+		gbc_lblPlayerSheet.gridy = 5;
+		panel_3.add(lblPlayerSheet, gbc_lblPlayerSheet);
+		
+		JLabel lblNickname_1 = new JLabel("Nickname");
+		lblNickname_1.setForeground(Color.WHITE);
+		lblNickname_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblNickname_1 = new GridBagConstraints();
+		gbc_lblNickname_1.anchor = GridBagConstraints.WEST;
+		gbc_lblNickname_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNickname_1.gridx = 1;
+		gbc_lblNickname_1.gridy = 7;
+		panel_3.add(lblNickname_1, gbc_lblNickname_1);
+		
+		Nickname = new JTextField();
+		GridBagConstraints gbc_Nickname = new GridBagConstraints();
+		gbc_Nickname.insets = new Insets(0, 0, 5, 5);
+		gbc_Nickname.fill = GridBagConstraints.HORIZONTAL;
+		gbc_Nickname.gridx = 3;
+		gbc_Nickname.gridy = 7;
+		panel_3.add(Nickname, gbc_Nickname);
+		Nickname.setColumns(10);
+		
+		JLabel lblHealth = new JLabel("Health");
+		lblHealth.setForeground(Color.WHITE);
+		lblHealth.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblHealth = new GridBagConstraints();
+		gbc_lblHealth.anchor = GridBagConstraints.WEST;
+		gbc_lblHealth.insets = new Insets(0, 0, 5, 5);
+		gbc_lblHealth.gridx = 1;
+		gbc_lblHealth.gridy = 8;
+		panel_3.add(lblHealth, gbc_lblHealth);
+		
+		JSpinner Health = new JSpinner();
+		Health.setModel(new SpinnerNumberModel(100, 0, 100, 1));
+		GridBagConstraints gbc_Health = new GridBagConstraints();
+		gbc_Health.insets = new Insets(0, 0, 5, 5);
+		gbc_Health.gridx = 3;
+		gbc_Health.gridy = 8;
+		panel_3.add(Health, gbc_Health);
+		
+		JLabel lblLevel = new JLabel("Level");
+		lblLevel.setForeground(Color.WHITE);
+		lblLevel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblLevel = new GridBagConstraints();
+		gbc_lblLevel.anchor = GridBagConstraints.WEST;
+		gbc_lblLevel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLevel.gridx = 1;
+		gbc_lblLevel.gridy = 9;
+		panel_3.add(lblLevel, gbc_lblLevel);
+		
+		JSpinner Level = new JSpinner();
+		Level.setModel(new SpinnerNumberModel(1, 1, 100, 1));
+		GridBagConstraints gbc_Level = new GridBagConstraints();
+		gbc_Level.insets = new Insets(0, 0, 5, 5);
+		gbc_Level.gridx = 3;
+		gbc_Level.gridy = 9;
+		panel_3.add(Level, gbc_Level);
+		
+		JLabel lblInitiative = new JLabel("Initiative");
+		lblInitiative.setForeground(Color.WHITE);
+		lblInitiative.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblInitiative = new GridBagConstraints();
+		gbc_lblInitiative.anchor = GridBagConstraints.WEST;
+		gbc_lblInitiative.insets = new Insets(0, 0, 5, 5);
+		gbc_lblInitiative.gridx = 1;
+		gbc_lblInitiative.gridy = 10;
+		panel_3.add(lblInitiative, gbc_lblInitiative);
+		
+		JSpinner Initiative = new JSpinner();
+		Initiative.setModel(new SpinnerNumberModel(100, 0, 200, 10));
+		GridBagConstraints gbc_Initiative = new GridBagConstraints();
+		gbc_Initiative.insets = new Insets(0, 0, 5, 5);
+		gbc_Initiative.gridx = 3;
+		gbc_Initiative.gridy = 10;
+		panel_3.add(Initiative, gbc_Initiative);
+		
+		JLabel label_6 = new JLabel("Strength");
+		label_6.setForeground(Color.WHITE);
+		label_6.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_label_6 = new GridBagConstraints();
+		gbc_label_6.anchor = GridBagConstraints.WEST;
+		gbc_label_6.insets = new Insets(0, 0, 5, 5);
+		gbc_label_6.gridx = 1;
+		gbc_label_6.gridy = 12;
+		panel_3.add(label_6, gbc_label_6);
+		
+		JSpinner Strength = new JSpinner();
+		Strength.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+		GridBagConstraints gbc_Strength = new GridBagConstraints();
+		gbc_Strength.insets = new Insets(0, 0, 5, 5);
+		gbc_Strength.gridx = 3;
+		gbc_Strength.gridy = 12;
+		panel_3.add(Strength, gbc_Strength);
+		
+		JLabel lblPerception = new JLabel("Perception");
+		lblPerception.setForeground(Color.WHITE);
+		lblPerception.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblPerception = new GridBagConstraints();
+		gbc_lblPerception.anchor = GridBagConstraints.WEST;
+		gbc_lblPerception.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPerception.gridx = 1;
+		gbc_lblPerception.gridy = 13;
+		panel_3.add(lblPerception, gbc_lblPerception);
+		
+		JSpinner Perception = new JSpinner();
+		Perception.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+		GridBagConstraints gbc_Perception = new GridBagConstraints();
+		gbc_Perception.insets = new Insets(0, 0, 5, 5);
+		gbc_Perception.gridx = 3;
+		gbc_Perception.gridy = 13;
+		panel_3.add(Perception, gbc_Perception);
+		
+		JLabel lblEndurance = new JLabel("Endurance");
+		lblEndurance.setForeground(Color.WHITE);
+		lblEndurance.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblEndurance = new GridBagConstraints();
+		gbc_lblEndurance.anchor = GridBagConstraints.WEST;
+		gbc_lblEndurance.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEndurance.gridx = 1;
+		gbc_lblEndurance.gridy = 14;
+		panel_3.add(lblEndurance, gbc_lblEndurance);
+		
+		JSpinner Endurance = new JSpinner();
+		Endurance.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+		GridBagConstraints gbc_Endurance = new GridBagConstraints();
+		gbc_Endurance.insets = new Insets(0, 0, 5, 5);
+		gbc_Endurance.gridx = 3;
+		gbc_Endurance.gridy = 14;
+		panel_3.add(Endurance, gbc_Endurance);
+		
+		JLabel lblCharisma = new JLabel("Charisma");
+		lblCharisma.setForeground(Color.WHITE);
+		lblCharisma.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblCharisma = new GridBagConstraints();
+		gbc_lblCharisma.anchor = GridBagConstraints.WEST;
+		gbc_lblCharisma.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCharisma.gridx = 1;
+		gbc_lblCharisma.gridy = 15;
+		panel_3.add(lblCharisma, gbc_lblCharisma);
+		
+		JSpinner Charisma = new JSpinner();
+		Charisma.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+		GridBagConstraints gbc_Charisma = new GridBagConstraints();
+		gbc_Charisma.insets = new Insets(0, 0, 5, 5);
+		gbc_Charisma.gridx = 3;
+		gbc_Charisma.gridy = 15;
+		panel_3.add(Charisma, gbc_Charisma);
+		
+		JLabel lblIntelligence = new JLabel("Intelligence");
+		lblIntelligence.setForeground(Color.WHITE);
+		lblIntelligence.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblIntelligence = new GridBagConstraints();
+		gbc_lblIntelligence.anchor = GridBagConstraints.WEST;
+		gbc_lblIntelligence.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIntelligence.gridx = 1;
+		gbc_lblIntelligence.gridy = 16;
+		panel_3.add(lblIntelligence, gbc_lblIntelligence);
+		
+		JSpinner Intelligence = new JSpinner();
+		Intelligence.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+		GridBagConstraints gbc_Intelligence = new GridBagConstraints();
+		gbc_Intelligence.insets = new Insets(0, 0, 5, 5);
+		gbc_Intelligence.gridx = 3;
+		gbc_Intelligence.gridy = 16;
+		panel_3.add(Intelligence, gbc_Intelligence);
+		
+		JLabel lblAgility = new JLabel("Agility");
+		lblAgility.setForeground(Color.WHITE);
+		lblAgility.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblAgility = new GridBagConstraints();
+		gbc_lblAgility.anchor = GridBagConstraints.WEST;
+		gbc_lblAgility.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAgility.gridx = 1;
+		gbc_lblAgility.gridy = 17;
+		panel_3.add(lblAgility, gbc_lblAgility);
+		
+		JSpinner Agility = new JSpinner();
+		Agility.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+		GridBagConstraints gbc_Agility = new GridBagConstraints();
+		gbc_Agility.insets = new Insets(0, 0, 5, 5);
+		gbc_Agility.gridx = 3;
+		gbc_Agility.gridy = 17;
+		panel_3.add(Agility, gbc_Agility);
+		
+		JLabel lblLuck = new JLabel("Luck");
+		lblLuck.setForeground(Color.WHITE);
+		lblLuck.setFont(new Font("Tahoma", Font.BOLD, 13));
+		GridBagConstraints gbc_lblLuck = new GridBagConstraints();
+		gbc_lblLuck.anchor = GridBagConstraints.WEST;
+		gbc_lblLuck.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLuck.gridx = 1;
+		gbc_lblLuck.gridy = 18;
+		panel_3.add(lblLuck, gbc_lblLuck);
+		
+		JSpinner Luck = new JSpinner();
+		Luck.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+		GridBagConstraints gbc_Luck = new GridBagConstraints();
+		gbc_Luck.insets = new Insets(0, 0, 5, 5);
+		gbc_Luck.gridx = 3;
+		gbc_Luck.gridy = 18;
+		panel_3.add(Luck, gbc_Luck);
+		
+		JButton btnLoad = new JButton("Load");
+		btnLoad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				for(int i = 0 ; i < playerList.size() ; i++) {
+					if(playerList.get(i)._nickName == txtPlayerLoad.getText()) {
+						currentPlayer = playerList.get(i);
+					}
+					else
+						return;
+				}
+				Nickname.setText(currentPlayer._nickName);
+				Level.setValue(currentPlayer._level);
+				Health.setValue(currentPlayer._health);
+				Initiative.setValue(currentPlayer._initiative);
+				
+				Strength.setValue(currentPlayer._skills._skills.get("S"));
+				Perception.setValue(currentPlayer._skills._skills.get("P"));
+				Endurance.setValue(currentPlayer._skills._skills.get("E"));
+				Charisma.setValue(currentPlayer._skills._skills.get("C"));
+				Intelligence.setValue(currentPlayer._skills._skills.get("I"));
+				Agility.setValue(currentPlayer._skills._skills.get("A"));
+				Luck.setValue(currentPlayer._skills._skills.get("L"));
+			}
+		});
+		
+		GridBagConstraints gbc_btnLoad = new GridBagConstraints();
+		gbc_btnLoad.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLoad.gridx = 5;
+		gbc_btnLoad.gridy = 3;
+		panel_3.add(btnLoad, gbc_btnLoad);
+		
+		
+		JButton btnNewButton = new JButton("Submit changes");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 4;
+		gbc_btnNewButton.gridy = 19;
+		panel_3.add(btnNewButton, gbc_btnNewButton);
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				for(int i = 0 ; i < playerList.size() ; i++) {
+					if(playerList.get(i)._nickName == Nickname.getText()) {
+						currentPlayer = playerList.get(i);
+					}
+					else
+						return;
+				}
+				Nickname.setText(currentPlayer._nickName);
+				Level.setValue(currentPlayer._level);
+				Health.setValue(currentPlayer._health);
+				Initiative.setValue(currentPlayer._initiative);
+				
+				Strength.setValue(currentPlayer._skills._skills.get("S"));
+				Perception.setValue(currentPlayer._skills._skills.get("P"));
+				Endurance.setValue(currentPlayer._skills._skills.get("E"));
+				Charisma.setValue(currentPlayer._skills._skills.get("C"));
+				Intelligence.setValue(currentPlayer._skills._skills.get("I"));
+				Agility.setValue(currentPlayer._skills._skills.get("A"));
+				Luck.setValue(currentPlayer._skills._skills.get("L"));
+			}
+		});
+		
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(Color.BLACK);
