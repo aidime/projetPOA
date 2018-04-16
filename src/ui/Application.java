@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -22,6 +23,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,7 +45,17 @@ public class Application {
 	private JFrame frmRpgmanager;
 	private JTextField txtLogEntries;
 	private JTextField txtEventtitle;
+	private JTextField eventTitleGame;
 
+	Logger logger = Logger.getLogger("MyLog");
+	ArrayList<Event> eventList = new ArrayList<Event>();
+	Event dummy1 = new Event("Dummy1", "I am a dummy event destined to be here only to be played with by devs");
+	Event dummy2 = new Event("Dummy2", "Dummy events return...");
+	
+	
+	Event currentEvent = new Event("Load an event to display it below","");
+	
+	
 	/**
 	 * Launch the application.
 	 * @throws IOException 
@@ -116,10 +128,13 @@ public class Application {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		
-		Logger logger = Logger.getLogger("MyLog");
-		ArrayList<Event> eventList = new ArrayList<Event>();
+		EventListCellRenderer eventListCellRenderer = new EventListCellRenderer();
+		
+		eventList.add(dummy1);
+		eventList.add(dummy2);
 		
 		frmRpgmanager = new JFrame();
 		frmRpgmanager.setBackground(Color.BLACK);
@@ -135,48 +150,103 @@ public class Application {
 		panel_4.setBackground(Color.GRAY);
 		tabbedPane.addTab("Game", null, panel_4, null);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[]{727, 0};
-		gbl_panel_4.rowHeights = new int[]{74, 160, 17, 14, 20, 14, 20, 23, 151, 20, 0};
-		gbl_panel_4.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_4.columnWidths = new int[] {100, 39, 30, 30, 30, 0, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 22, 0, 30, 30, 30};
+		gbl_panel_4.rowHeights = new int[] {30, 30, 147, 14, 20, 14, 20, 23, 151, 44, 0};
+		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
-		JList list = new JList(eventList.toArray());
-		list.setToolTipText("eventList");
-		GridBagConstraints gbc_list = new GridBagConstraints();
-		gbc_list.fill = GridBagConstraints.BOTH;
-		gbc_list.insets = new Insets(0, 0, 5, 0);
-		gbc_list.gridx = 0;
-		gbc_list.gridy = 0;
-		panel_4.add(list, gbc_list);
+		JLabel lblNewLabel = new JLabel("Event List");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 0;
+		panel_4.add(lblNewLabel, gbc_lblNewLabel);
+		
+		
+		JList eventListGame = new JList(eventList.toArray());
+		eventListGame.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent arg0) {
+				eventListGame = new JList(eventList.toArray());
+			}
+		});
+		eventListGame.setToolTipText("eventList");
+		GridBagConstraints gbc_eventListGame = new GridBagConstraints();
+		gbc_eventListGame.gridheight = 2;
+		gbc_eventListGame.gridwidth = 4;
+		gbc_eventListGame.fill = GridBagConstraints.BOTH;
+		gbc_eventListGame.insets = new Insets(0, 0, 5, 5);
+		gbc_eventListGame.gridx = 1;
+		gbc_eventListGame.gridy = 1;
+		panel_4.add(eventListGame, gbc_eventListGame);
+		eventListGame.setCellRenderer(eventListCellRenderer);
+		
+		eventTitleGame = new JTextField();
+		GridBagConstraints gbc_eventTitleGame = new GridBagConstraints();
+		gbc_eventTitleGame.gridwidth = 12;
+		gbc_eventTitleGame.insets = new Insets(0, 0, 5, 5);
+		gbc_eventTitleGame.fill = GridBagConstraints.HORIZONTAL;
+		gbc_eventTitleGame.gridx = 5;
+		gbc_eventTitleGame.gridy = 1;
+		panel_4.add(eventTitleGame, gbc_eventTitleGame);
+		eventTitleGame.setColumns(10);
 		
 		
 		
 		
 		
-		JTextPane textPane = new JTextPane();
-		GridBagConstraints gbc_textPane = new GridBagConstraints();
-		gbc_textPane.fill = GridBagConstraints.BOTH;
-		gbc_textPane.insets = new Insets(0, 0, 5, 0);
-		gbc_textPane.gridx = 0;
-		gbc_textPane.gridy = 1;
-		panel_4.add(textPane, gbc_textPane);
+		JTextPane eventContentGame = new JTextPane();
+		GridBagConstraints gbc_eventContentGame = new GridBagConstraints();
+		gbc_eventContentGame.gridwidth = 12;
+		gbc_eventContentGame.fill = GridBagConstraints.BOTH;
+		gbc_eventContentGame.insets = new Insets(0, 0, 5, 5);
+		gbc_eventContentGame.gridx = 5;
+		gbc_eventContentGame.gridy = 2;
+		panel_4.add(eventContentGame, gbc_eventContentGame);
 		
-		JLabel lblRollTheDices = new JLabel("Roll the dices");
-		lblRollTheDices.setFont(new Font("Tahoma", Font.BOLD, 14));
-		GridBagConstraints gbc_lblRollTheDices = new GridBagConstraints();
-		gbc_lblRollTheDices.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblRollTheDices.insets = new Insets(0, 0, 5, 0);
-		gbc_lblRollTheDices.gridx = 0;
-		gbc_lblRollTheDices.gridy = 2;
-		panel_4.add(lblRollTheDices, gbc_lblRollTheDices);
+		JButton btnLoadEvent = new JButton("Load event");
+		btnLoadEvent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg) {
+				for(int i = 0 ; i < eventList.size() ; i++) {
+					if(eventList.get(i)._title == eventListGame.getSelectedValue()) {
+						currentEvent = eventList.get(i);
+						logger.info("Event : "+ currentEvent._title + " loaded.");
+					}
+				}
+			}
+		});
+		GridBagConstraints gbc_btnLoadEvent = new GridBagConstraints();
+		gbc_btnLoadEvent.gridwidth = 3;
+		gbc_btnLoadEvent.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLoadEvent.gridx = 1;
+		gbc_btnLoadEvent.gridy = 3;
+		panel_4.add(btnLoadEvent, gbc_btnLoadEvent);
+		
+		JButton btnNewButton_4 = new JButton("Update Event");
+		btnNewButton_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				currentEvent._title = eventTitleGame.getText();
+				currentEvent._notes = eventContentGame.getText();
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
+		gbc_btnNewButton_4.gridwidth = 6;
+		gbc_btnNewButton_4.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_4.gridx = 5;
+		gbc_btnNewButton_4.gridy = 3;
+		panel_4.add(btnNewButton_4, gbc_btnNewButton_4);
 		
 		JLabel lblNumberOfFaces = new JLabel("Number of Faces");
 		lblNumberOfFaces.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNumberOfFaces = new GridBagConstraints();
 		gbc_lblNumberOfFaces.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblNumberOfFaces.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNumberOfFaces.gridx = 0;
+		gbc_lblNumberOfFaces.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumberOfFaces.gridx = 16;
 		gbc_lblNumberOfFaces.gridy = 3;
 		panel_4.add(lblNumberOfFaces, gbc_lblNumberOfFaces);
 		
@@ -184,19 +254,38 @@ public class Application {
 		spinner.setModel(new SpinnerNumberModel(4, 4, 20, 2));
 		GridBagConstraints gbc_spinner = new GridBagConstraints();
 		gbc_spinner.anchor = GridBagConstraints.NORTHEAST;
-		gbc_spinner.insets = new Insets(0, 0, 5, 0);
-		gbc_spinner.gridx = 0;
+		gbc_spinner.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner.gridx = 16;
 		gbc_spinner.gridy = 4;
 		panel_4.add(spinner, gbc_spinner);
+		
+		JLabel lblRollTheDices = new JLabel("Roll the dices");
+		lblRollTheDices.setFont(new Font("Tahoma", Font.BOLD, 14));
+		GridBagConstraints gbc_lblRollTheDices = new GridBagConstraints();
+		gbc_lblRollTheDices.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblRollTheDices.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRollTheDices.gridx = 14;
+		gbc_lblRollTheDices.gridy = 5;
+		panel_4.add(lblRollTheDices, gbc_lblRollTheDices);
+		
+		JLabel lblNumberOfDices = new JLabel("Number of Dices");
+		lblNumberOfDices.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblNumberOfDices = new GridBagConstraints();
+		gbc_lblNumberOfDices.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblNumberOfDices.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumberOfDices.gridx = 16;
+		gbc_lblNumberOfDices.gridy = 5;
+		panel_4.add(lblNumberOfDices, gbc_lblNumberOfDices);
 		
 		JSpinner spinner_1 = new JSpinner();
 		spinner_1.setModel(new SpinnerNumberModel(1, 1, 9, 1));
 		GridBagConstraints gbc_spinner_1 = new GridBagConstraints();
 		gbc_spinner_1.anchor = GridBagConstraints.NORTHEAST;
-		gbc_spinner_1.insets = new Insets(0, 0, 5, 0);
-		gbc_spinner_1.gridx = 0;
+		gbc_spinner_1.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_1.gridx = 16;
 		gbc_spinner_1.gridy = 6;
 		panel_4.add(spinner_1, gbc_spinner_1);
+		
 		
 		JButton btnRoll = new JButton("Roll!");
 		btnRoll.addMouseListener(new MouseAdapter() {
@@ -206,29 +295,22 @@ public class Application {
 			}
 		});
 		
+		
 		GridBagConstraints gbc_btnRoll = new GridBagConstraints();
 		gbc_btnRoll.anchor = GridBagConstraints.NORTHEAST;
-		gbc_btnRoll.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRoll.gridx = 0;
+		gbc_btnRoll.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRoll.gridx = 16;
 		gbc_btnRoll.gridy = 7;
 		panel_4.add(btnRoll, gbc_btnRoll);
-		
-		JLabel lblNumberOfDices = new JLabel("Number of Dices");
-		lblNumberOfDices.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblNumberOfDices = new GridBagConstraints();
-		gbc_lblNumberOfDices.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblNumberOfDices.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNumberOfDices.gridx = 0;
-		gbc_lblNumberOfDices.gridy = 5;
-		panel_4.add(lblNumberOfDices, gbc_lblNumberOfDices);
 		
 
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 16;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
-		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 8;
 		panel_4.add(scrollPane, gbc_scrollPane);
 		
@@ -236,60 +318,62 @@ public class Application {
 		scrollPane.setViewportView(txtrLogs);
 		txtrLogs.setLineWrap(true);
 		txtrLogs.setWrapStyleWord(true);
-		
+		//		try {
+		//		    FileReader filereader = new FileReader("tests/Logs.log");
+		//		    BufferedReader reader = new BufferedReader(filereader);
+		//		    String line;
+		//			while ((line = reader.readLine()) != null)
+		//			{
+		//			    if (line.startsWith("INFOS"))
+		//			    {
+		//			        txtrLogs.append(line + "\n");
+		//			    }
+		//			}
+		//		} catch (IOException ioe) {
+		//		    System.err.println(ioe);
+		//		}
+				
+				txtrLogs.addMouseMotionListener(new MouseMotionAdapter() {
+					@Override
+					public void mouseMoved(MouseEvent arg0) {
+						try {
+						    FileReader filereader = new FileReader("tests/Logs.log");
+						    BufferedReader reader = new BufferedReader(filereader);
+						    String line;
+							while ((line = reader.readLine()) != null)
+							{
+							    if (line.startsWith("INFOS"))
+							    {
+							        txtrLogs.append(line + "\n");
+							    }
+							}
+						} catch (IOException ioe) {
+						    System.err.println(ioe);
+						}
+					}
+				});
+				
 	    
-		txtLogEntries = new JTextField();
-		txtLogEntries.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent evt) {
-				if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+				txtLogEntries = new JTextField();
+				txtLogEntries.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent evt) {
+						if(evt.getKeyCode() == KeyEvent.VK_ENTER)
 	            {
 	                logger.info(txtLogEntries.getText());
 	                txtLogEntries.setText("");
 	            }
-			}
-		});
-		GridBagConstraints gbc_txtLogEntries = new GridBagConstraints();
-		gbc_txtLogEntries.anchor = GridBagConstraints.NORTH;
-		gbc_txtLogEntries.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLogEntries.gridx = 0;
-		gbc_txtLogEntries.gridy = 9;
-		panel_4.add(txtLogEntries, gbc_txtLogEntries);
-		txtLogEntries.setColumns(10);
-//		try {
-//		    FileReader filereader = new FileReader("tests/Logs.log");
-//		    BufferedReader reader = new BufferedReader(filereader);
-//		    String line;
-//			while ((line = reader.readLine()) != null)
-//			{
-//			    if (line.startsWith("INFOS"))
-//			    {
-//			        txtrLogs.append(line + "\n");
-//			    }
-//			}
-//		} catch (IOException ioe) {
-//		    System.err.println(ioe);
-//		}
-		
-		txtrLogs.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseMoved(MouseEvent arg0) {
-				try {
-				    FileReader filereader = new FileReader("tests/Logs.log");
-				    BufferedReader reader = new BufferedReader(filereader);
-				    String line;
-					while ((line = reader.readLine()) != null)
-					{
-					    if (line.startsWith("INFOS"))
-					    {
-					        txtrLogs.append(line + "\n");
-					    }
 					}
-				} catch (IOException ioe) {
-				    System.err.println(ioe);
-				}
-			}
-		});
+				});
+				GridBagConstraints gbc_txtLogEntries = new GridBagConstraints();
+				gbc_txtLogEntries.gridwidth = 15;
+				gbc_txtLogEntries.insets = new Insets(0, 0, 0, 5);
+				gbc_txtLogEntries.anchor = GridBagConstraints.NORTH;
+				gbc_txtLogEntries.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtLogEntries.gridx = 1;
+				gbc_txtLogEntries.gridy = 9;
+				panel_4.add(txtLogEntries, gbc_txtLogEntries);
+				txtLogEntries.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.GRAY);
@@ -320,8 +404,10 @@ public class Application {
 		gbc_scrollPane_1.gridy = 2;
 		panel_1.add(scrollPane_1, gbc_scrollPane_1);
 		
-		JList listEvents = new JList();
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		JList listEvents = new JList(eventList.toArray());
 		scrollPane_1.setViewportView(listEvents);
+		listEvents.setCellRenderer(eventListCellRenderer);
 		
 		JLabel lblCreateANew = new JLabel("Create a new Event");
 		lblCreateANew.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -381,6 +467,8 @@ public class Application {
 				
 				txtEventtitle.setText("");
 				txtEventContent.setText("");
+				
+				//listEvents = new JList(eventList.toArray());
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
@@ -389,34 +477,35 @@ public class Application {
 		gbc_btnNewButton_3.gridy = 18;
 		panel_1.add(btnNewButton_3, gbc_btnNewButton_3);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.GRAY);
-		panel_2.setToolTipText("Logs");
-		tabbedPane.addTab("Logs", null, panel_2, null);
-		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.GRAY);
 		panel_3.setToolTipText("Players");
 		tabbedPane.addTab("Players", null, panel_3, null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.GRAY);
-		panel.setToolTipText("Campaign");
-		tabbedPane.addTab("Campaign", null, panel, null);
-		panel.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JButton btnNewButton = new JButton("New Campaign");
-		panel.add(btnNewButton);
-		
-		JButton btnNewButton_2 = new JButton("New Campaign");
-		panel.add(btnNewButton_2);
-		
-		JButton btnNewButton_1 = new JButton("New Campaign");
-		panel.add(btnNewButton_1);
-		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(Color.BLACK);
 		tabbedPane.addTab("Help", null, panel_5, null);
+	}
+	
+	public class EventListCellRenderer extends DefaultListCellRenderer {
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public Component getListCellRendererComponent(JList<?> list,
+	                                 Object value,
+	                                 int index,
+	                                 boolean isSelected,
+	                                 boolean cellHasFocus) {
+	        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+	        if (value instanceof Event) {
+	            Event event = (Event)value;
+	            setText(event.get_title());
+	            setToolTipText(event.get_notes());
+	        }
+	        return this;
+	    }
 	}
 
 }

@@ -100,3 +100,33 @@ avr. 15, 2018 5:33:37 PM core.DiceRolls rollTheDices
 INFOS: Rolls : 10 + 5 + 5 + 2 + 6 + 8 + 5.
 avr. 15, 2018 5:33:47 PM ui.Application$3 keyPressed
 INFOS: Aidime monte d'un niveau
+avr. 15, 2018 7:32:01 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 7:32:33 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 7:32:49 PM ui.Application$4 keyPressed
+INFOS: pouet
+avr. 15, 2018 7:34:57 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 7:38:34 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 7:41:31 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 7:41:41 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 2.
+avr. 15, 2018 7:41:43 PM core.DiceRolls rollTheDices
+INFOS: Rolls : 4.
+avr. 15, 2018 7:41:48 PM ui.Application$4 keyPressed
+INFOS: sss
+avr. 15, 2018 7:46:40 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 7:47:12 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 8:13:15 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 8:14:39 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 8:25:00 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 8:25:14 PM ui.Application main
+INFOS: First log

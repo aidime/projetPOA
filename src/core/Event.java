@@ -22,7 +22,10 @@ public class Event {
 		this._notes = _notes;
 	}
 
-
+	public Event(Event e) {
+		this._title = e._title;
+		this._notes = e._notes;
+	}
 
 		
 	/*

@@ -27,7 +27,6 @@ public class Player implements Serializable{
 	public int _initiative;
 	public Skills _skills;
 	public String[] _inventory;
-	//TODO manque l'xp ?
 	
 	
 	/*
@@ -60,22 +59,6 @@ public class Player implements Serializable{
 		SerializationUtil.deserialize("tests/players/"+fileName);
 	}
 	
-	//creates a character at a certain level and with certain skills entered in the form
-	//used to get a saved character back into the app
-	//TODO do we really need that with the (de)serialization ?
-//	public Player(int id, String name, String nickname, int level, int health, int initiative, Skills skills, String[] inventory) {
-//		_id = id;
-//		_name = name;
-//		_nickName = nickname;
-//		_level = level;
-//		_health = health;
-//		_initiative = initiative;
-//		_skills = skills;
-//		_inventory = inventory;
-//	}
-	
-	
-
 
 
 
@@ -163,6 +146,7 @@ public class Player implements Serializable{
 	public void playerHeal(int healAmount) {
 		_health += healAmount;
 	}
+	
 	
 	
 	@Override
