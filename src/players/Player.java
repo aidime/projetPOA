@@ -138,15 +138,7 @@ public class Player implements Serializable{
 		//TODO
 		SerializationUtil.deserialize(playerName);
 	}
-	
-	public void playerDamage(int damage) {
-		_health -= damage;
-	}
-	
-	public void playerHeal(int healAmount) {
-		_health += healAmount;
-	}
-	
+
 	
 	
 	@Override

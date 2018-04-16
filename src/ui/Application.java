@@ -47,7 +47,7 @@ public class Application {
 	private JTextField txtEventtitle;
 	private JTextField eventTitleGame;
 
-	Logger logger = Logger.getLogger("MyLog");
+	
 	ArrayList<Event> eventList = new ArrayList<Event>();
 	Event dummy1 = new Event("Dummy1", "I am a dummy event destined to be here only to be played with by devs");
 	Event dummy2 = new Event("Dummy2", "Dummy events return...");
@@ -132,7 +132,7 @@ public class Application {
 	private void initialize() {
 		
 		EventListCellRenderer eventListCellRenderer = new EventListCellRenderer();
-		
+		Logger logger = Logger.getLogger("MyLog");
 		eventList.add(dummy1);
 		eventList.add(dummy2);
 		
@@ -170,7 +170,7 @@ public class Application {
 		eventListGame.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
-				eventListGame = new JList(eventList.toArray());
+				updateEventList(eventListGame);
 			}
 		});
 		eventListGame.setToolTipText("eventList");
@@ -485,6 +485,10 @@ public class Application {
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(Color.BLACK);
 		tabbedPane.addTab("Help", null, panel_5, null);
+	}
+	
+	public void updateEventList(JList list) {
+		list = new JList(eventList.toArray());
 	}
 	
 	public class EventListCellRenderer extends DefaultListCellRenderer {
