@@ -52,7 +52,7 @@ public class Application {
 
 	ArrayList<Player> playerList = new ArrayList<Player>();
 	ArrayList<Event> eventList = new ArrayList<Event>();
-	Event dummy1 = new Event("Dummy1", "I am a dummy event destined to be here only to be played with by devs");
+	Event dummy1 = new Event("Dummy1", "I am a dummy event destined to be here only to be played with by devs\nYou can modify me at will and reload me afterwards !");
 	Event dummy2 = new Event("Dummy2", "Dummy events return...");
 	
 	
@@ -220,12 +220,10 @@ public class Application {
 		btnLoadEvent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg) {
-				for(int i = 0 ; i < eventList.size() ; i++) {
-					if(eventList.get(i)._title == eventListGame.getSelectedValue()) {
-						currentEvent = eventList.get(i);
-						logger.info("Event : "+ currentEvent._title + " loaded.");
-					}
-				}
+				currentEvent = eventList.get(eventListGame.getSelectedIndex());
+				logger.info("Event : "+ currentEvent._title + " loaded.");
+				eventTitleGame.setText(currentEvent._title);
+				eventContentGame.setText(currentEvent._notes);
 			}
 		});
 		GridBagConstraints gbc_btnLoadEvent = new GridBagConstraints();
