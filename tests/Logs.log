@@ -70,3 +70,13 @@ avr. 15, 2018 10:25:19 PM ui.Application$3 mouseClicked
 INFOS: Event : Dummy1 loaded.
 avr. 15, 2018 10:25:31 PM core.DiceRolls rollTheDices
 INFOS: Rolls : 8 + 1 + 7 + 10.
+avr. 15, 2018 10:41:04 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 10:42:57 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 10:45:35 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 10:51:18 PM ui.Application main
+INFOS: First log
+avr. 15, 2018 11:00:03 PM ui.Application main
+INFOS: First log

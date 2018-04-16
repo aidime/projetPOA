@@ -8,7 +8,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
  
-
+//=================================================================================
+//
+//Cette classe n'est pas utilisée dans le produit final, 
+//mais elle sert d'ouverture sur les fonctionnalités que nous n'avons pas réussi à mettre en place dans les temps
+//
+//=================================================================================
 
 //This class is a utility class for performing the serialization and deserialization operations provided the required information.
 //It will serve as a savestate of the players involved in a campaign.

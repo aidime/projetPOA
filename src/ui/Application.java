@@ -7,7 +7,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -37,8 +36,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 
-import com.sun.xml.internal.ws.api.pipe.ThrowableContainerPropertySet;
-
 import core.DiceRolls;
 import core.Event;
 import players.Player;
@@ -51,13 +48,16 @@ public class Application {
 	private JTextField eventTitleGame;
 
 	ArrayList<Player> playerList = new ArrayList<Player>();
+	Player p1 = new Player("Aidime");
+	Player p2 = new Player("KyZoar");
+	
 	ArrayList<Event> eventList = new ArrayList<Event>();
 	Event dummy1 = new Event("Dummy1", "I am a dummy event destined to be here only to be played with by devs\nYou can modify me at will and reload me afterwards !");
 	Event dummy2 = new Event("Dummy2", "Dummy events return...");
 	
 	
 	Event currentEvent = new Event("Load an event to display it below","");
-	Player currentPlayer = new Player("dummy");
+	Player currentPlayer = p1;
 
 	
 	private JTextField txtPlayerCreate;
@@ -96,7 +96,7 @@ public class Application {
         
         try {  
 	        //This block configure the logger with handler and formatter  
-	        fh = new FileHandler(logFile.getCanonicalPath(), true);  //TODO replace according to changes
+	        fh = new FileHandler(logFile.getCanonicalPath(), true);  
 	        logger.addHandler(fh);
 	        SimpleFormatter formatter = new SimpleFormatter();  
 	        fh.setFormatter(formatter);  
@@ -144,6 +144,17 @@ public class Application {
 		Logger logger = Logger.getLogger("MyLog");
 		eventList.add(dummy1);
 		eventList.add(dummy2);
+		
+		p1._health = 80;
+		p1._initiative = 150;
+		p1._level = 4;
+		
+		p2._health = 100;
+		p2._initiative = 90;
+		p2._level = 6;
+		
+		playerList.add(p1);
+		playerList.add(p2);
 		
 		frmRpgmanager = new JFrame();
 		frmRpgmanager.setBackground(Color.BLACK);
@@ -789,13 +800,13 @@ public class Application {
 				Health.setValue(currentPlayer._health);
 				Initiative.setValue(currentPlayer._initiative);
 				
-				Strength.setValue(currentPlayer._skills._skills.get("S"));
-				Perception.setValue(currentPlayer._skills._skills.get("P"));
-				Endurance.setValue(currentPlayer._skills._skills.get("E"));
-				Charisma.setValue(currentPlayer._skills._skills.get("C"));
-				Intelligence.setValue(currentPlayer._skills._skills.get("I"));
-				Agility.setValue(currentPlayer._skills._skills.get("A"));
-				Luck.setValue(currentPlayer._skills._skills.get("L"));
+//				Strength.setValue(currentPlayer._skills._skills.get("S"));
+//				Perception.setValue(currentPlayer._skills._skills.get("P"));
+//				Endurance.setValue(currentPlayer._skills._skills.get("E"));
+//				Charisma.setValue(currentPlayer._skills._skills.get("C"));
+//				Intelligence.setValue(currentPlayer._skills._skills.get("I"));
+//				Agility.setValue(currentPlayer._skills._skills.get("A"));
+//				Luck.setValue(currentPlayer._skills._skills.get("L"));
 			}
 		});
 		
@@ -839,10 +850,28 @@ public class Application {
 		
 		
 		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.BLACK);
+		panel_5.setBackground(Color.GRAY);
 		tabbedPane.addTab("Help", null, panel_5, null);
+		GridBagLayout gbl_panel_5 = new GridBagLayout();
+		gbl_panel_5.columnWidths = new int[] {30, 30, 300, 30, 30};
+		gbl_panel_5.rowHeights = new int[] {30, 0, 30};
+		gbl_panel_5.columnWeights = new double[]{0.0, 0.0, 1.0};
+		gbl_panel_5.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		panel_5.setLayout(gbl_panel_5);
+		
+		JTextArea txtrGameTab = new JTextArea();
+		txtrGameTab.setText("Game tab :\r\n\tBrowse the existing events and load them to have the full details, and to modify them at will. Roll the dices, choosing the number of dices and faces of the roll. Get Logs of your rolls, the events you call, or even custom logs by typing in the bottom text area !\r\n\r\n\r\nEvents tab :\r\n\tCreate new events to be launched in the game tab (WARNING : event list update doesn't work properly).\r\n\r\n\r\nPlayers tab :\r\n\tCreate new players and manage their SPECIAL points, their health, their initiative,or their level.\r\n\r\n\r\nDev. notes : \r\n\tThis is an oversimplified version of what this project could be, for that reason, playersheets, events, or even dice rolls are extremely simple. This is a result of bad time management and way too big ambitions for this project, and we would like to apologize for that. \r\n\tOne could see the potential of such an app by imagining it on the internet, where players and GM's alike could interact with the app simultaneously, where we could use a database to hold data. The possibilities are great, but we lacked the time, and for some technicalities, the knowledge, to release the full potential of this project.");
+		txtrGameTab.setLineWrap(true);
+		txtrGameTab.setWrapStyleWord(true);
+		txtrGameTab.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		GridBagConstraints gbc_txtrGameTab = new GridBagConstraints();
+		gbc_txtrGameTab.fill = GridBagConstraints.BOTH;
+		gbc_txtrGameTab.gridx = 2;
+		gbc_txtrGameTab.gridy = 1;
+		panel_5.add(txtrGameTab, gbc_txtrGameTab);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void updateEventList(JList list) {
 		list = new JList(eventList.toArray());
 	}
